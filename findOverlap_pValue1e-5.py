@@ -37,42 +37,42 @@ for i in range(len(file_3utr)):
    if len(loci) != 0:
 #      print loci,'\n'
 #      print whether_unique
-      for i in range(1,len(file_eQtl)):
+      for i2 in range(len(file_eQtl)):
          chr2 =0
          #Filter Start
-         filtered_eQtl = filter(None,file_eQtl[i].split(' '))
-         pValue = float(filtered_eQtl[-3])
-         if pValue > 0.00001:
-            continue
-         else:
+#         filtered_eQtl = filter(None,file_eQtl[i].split(' '))
+#         pValue = float(filtered_eQtl[-3])
+#         if pValue > 0.00001:
+#            continue
+#         else:
          #Filter End
-            for j in range(len(file_eQtl[i])):
-               if file_eQtl[i][j] == '_':
-                  iii = 1
-                  while file_eQtl[i][j-iii] != ' ':
-                  # print file_eQtl[i][j-iii],'\n'
-                     iii += 1
-                  #print str('iii= '),iii
-                  for iiii in range(1,iii):
-                     chr2 = chr2 + int(file_eQtl[i][j-iiii])*(10**(iiii-1))
-                  print chr1,chr2
-                  if chr1 == chr2:
-                     ii = 1
-                     while ii <= len(loci):
-#                        print loci[ii-1],file_eQtl[i][j+ii]
-                        if(file_eQtl[i][j+ii] == loci[ii-1]):
-                           ii += 1
-                           whether_unique = 0
-                        else:
-                           whether_unique = 1
-                           break
-                     break
-                  else:
-                     whether_unique = 1
-                     break
-            if whether_unique == 0:
-               break
-      print whether_unique
+         for j2 in range(len(file_eQtl[i2])):
+            if file_eQtl[i2][j2] == '_':
+               iii2 = 1
+               while file_eQtl[i2][j2-iii2] != ' ':
+               # print file_eQtl[i][j-iii],'\n'
+                  iii2 += 1
+               #print str('iii= '),iii
+               for iiii2 in range(1,iii2):
+                  chr2 = chr2 + int(file_eQtl[i2][j2-iiii2])*(10**(iiii2-1))
+#               print chr1,chr2
+               if chr1 == chr2:
+                  ii2 = 1
+                  while ii2 <= len(loci):
+#                       print loci[ii-1],file_eQtl[i][j+ii]
+                     if(file_eQtl[i2][j2+ii2] == loci[ii2-1]):
+                        ii2 += 1
+                        whether_unique = 0
+                     else:
+                        whether_unique = 1
+                        break
+                  break
+               else:
+                  whether_unique = 1
+                  break
+         if whether_unique == 0:
+            break
+#      print whether_unique
       if whether_unique == 1:
          flag_unique += 1
       else:

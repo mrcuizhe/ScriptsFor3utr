@@ -17,66 +17,50 @@ overlap_file = open(file_overlap, "w")
 flag_overlap = 0
 flag_unique = 0
 
-for i in range(len(file_3utr)):
-   loci=[]
+for i in range(1,len(file_3utr)):
+   loci=0
    chr1=0
    whether_unique = 1
-   for j in range(len(file_3utr[i])):
-      if file_3utr[i][j] == '_' and len(loci) == 0:
-         iii = 1
-         while file_3utr[i][j-iii] != 'r':
-            iii += 1
-         for iiii in range(1,iii):
-            chr1 = chr1 + int(file_3utr[i][j-iiii])*(10**(iiii-1))
-         ii = 1
-         while file_3utr[i][j+ii] != '_':
-            loci.append(file_3utr[i][j+ii])
-            ii += 1
-      if len(loci) != 0:
-         break
-   if len(loci) != 0:
-#      print loci,'\n'
-#      print whether_unique
-      for i2 in range(len(file_eQtl)):
-         chr2 =0
-         #Filter Start
-#         filtered_eQtl = filter(None,file_eQtl[i].split(' '))
-#         pValue = float(filtered_eQtl[-3])
-#         if pValue > 0.00001:
-#            continue
-#         else:
-         #Filter End
-         for j2 in range(len(file_eQtl[i2])):
-            if file_eQtl[i2][j2] == '_':
-               iii2 = 1
-               while file_eQtl[i2][j2-iii2] != ' ':
-               # print file_eQtl[i][j-iii],'\n'
-                  iii2 += 1
-               #print str('iii= '),iii
-               for iiii2 in range(1,iii2):
-                  chr2 = chr2 + int(file_eQtl[i2][j2-iiii2])*(10**(iiii2-1))
-#               print chr1,chr2
-               if chr1 == chr2:
-                  ii2 = 1
-                  while ii2 <= len(loci):
-#                       print loci[ii-1],file_eQtl[i][j+ii]
-                     if(file_eQtl[i2][j2+ii2] == loci[ii2-1]):
-                        ii2 += 1
-                        whether_unique = 0
-                     else:
-                        whether_unique = 1
-                        break
-                  break
-               else:
-                  whether_unique = 1
-                  break
-         if whether_unique == 0:
+   line_file_3utr = filter(None,file_3utr[i].split(' '))
+   countletter = 0
+   while line_file_3utr[0][countletter] != '_':
+      countletter += 1
+   print line_file_3utr[0][3:(countletter)]
+   chr1 = int(line_file_3utr[0][3:countletter])
+   countletter2 = countletter+1
+   while line_file_3utr[0][countletter2] != '_':
+      countletter2 += 1
+   loci = int(line_file_3utr[0][countletter+1:countletter2])
+   
+   for i2 in range(len(file_eQtl)):
+      loci2 = 0
+      chr2 =0
+      line_file_eqtl = filter(None,file_eQtl[i2].split(' '))
+      countletter_e = 0
+      while line_file_eqtl[1][countletter_e] != '_':
+         countletter_e += 1
+      print(line_file_eqtl[1][0:countletter_e] )
+      chr2 = int(line_file_eqtl[1][0:countletter_e])
+      countletter_e2 = countletter_e + 1
+      while line_file_eqtl[1][countletter_e2] != '_':
+         countletter_e2 += 1
+      loci2 = int(line_file_eqtl[1][countletter_e+1:countletter_e2])
+      
+      if chr1 == chr2:
+         if loci == loci2:
+            whether_unique = 0
             break
-#      print whether_unique
-      if whether_unique == 1:
-         flag_unique += 1
+         else:
+            whether_unique = 1
+            continue
       else:
-         flag_overlap += 1
+         whether_unique = 1
+         continue
+            
+   if whether_unique == 1:
+      flag_unique += 1
+   else:
+      flag_overlap += 1
                 
          
   # if i==3 and not in file_eQtl:

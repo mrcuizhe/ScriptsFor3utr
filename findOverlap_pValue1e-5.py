@@ -21,6 +21,7 @@ for i in range(1,len(file_3utr)):
    loci=0
    whether_unique = 1
    line_file_3utr = filter(None,file_3utr[i].split('\t'))
+ #  print line_file_3utr
    countletter = 0
    while line_file_3utr[0][countletter] != '_':
       countletter += 1
@@ -37,7 +38,7 @@ for i in range(1,len(file_3utr)):
    for i2 in range(len(file_eQtl)):
       loci2 = 0
       line_file_eqtl = filter(None,file_eQtl[i2].split('\t'))
-  #    print line_file_eqtl	
+     # print line_file_eqtl	
       countletter_e = 0
       while line_file_eqtl[1][countletter_e] != '_':
          countletter_e += 1
@@ -65,6 +66,8 @@ for i in range(1,len(file_3utr)):
       flag_unique += 1
    else:
       flag_overlap += 1
+   percent = (float(i)/len(file_3utr))*100
+   print percent, " %"
                 
          
   # if i==3 and not in file_eQtl:
